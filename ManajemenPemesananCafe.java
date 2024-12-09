@@ -45,7 +45,71 @@ public class ManajemenPemesananCafe {
     }
 
     static void tambahPesanan() {
+        String namaPelanggan, nomorMeja;
+        int hargaKeseluruhan = 0;
+        String detailPesanan = "";
+        
+        System.out.print("Masukkan nama pelanggan: ");
+        namaPelanggan = input.nextLine();
 
+        boolean mejaTersedia;
+        do {
+            mejaTersedia = true;
+            System.out.print("Masukkan nomor meja: ");
+            nomorMeja = input.nextLine();
+            
+            for (int i = 0; i < pesananTercatat; i++) {
+                if (pesanan[i][1].equals(nomorMeja)) {
+                    System.out.println("Maaf, meja " + nomorMeja + " sudah terisi. Silakan pilih meja lain.");
+                    mejaTersedia = false;
+                    break;
+                }
+            }
+        } while (mejaTersedia == false);
+        
+
+
+        System.out.println("===== MENU =====");
+        for (int i = 0; i < daftarMenu.length; i++) {
+            System.out.println((i + 1) + ". " + daftarMenu[i] + " - Rp " + hargaDaftarMenu[i]);
+        }
+
+        int pilihMenu;
+        do {
+            System.out.print("Pilih nomor menu (atau 0 untuk selesai): ");
+            pilihMenu = input.nextInt();
+
+            if (pilihMenu < 0 || pilihMenu > daftarMenu.length) {
+                System.out.println("Menu tidak ditemukan!");
+                continue;
+            }
+
+            if (pilihMenu != 0) {
+                System.out.print("Masukkan jumlah " + daftarMenu[pilihMenu - 1] + ": ");
+                int jumlah = input.nextInt();
+
+                if (jumlah <= 0) {
+                    System.out.println("Jumlah harus lebih dari 0!");
+                    continue;
+                }
+
+                int totalHargaItem = hargaDaftarMenu[pilihMenu - 1] * jumlah;
+                hargaKeseluruhan += totalHargaItem;
+
+                detailPesanan += "- " + daftarMenu[pilihMenu - 1] + " x " + jumlah + " = Rp " + totalHargaItem + "\n";
+
+            }
+            
+        } while (pilihMenu != 0);
+
+        pesanan[pesananTercatat][0] = namaPelanggan;
+        pesanan[pesananTercatat][1] = nomorMeja;
+        pesanan[pesananTercatat][2] = detailPesanan;
+        pesanan[pesananTercatat][3] = String.valueOf(hargaKeseluruhan);
+        
+        pesananTercatat++;
+
+        System.out.println("Pesanan telah ditambahkan!");
     }
 
     static void lihatSemuaPesanan() {
