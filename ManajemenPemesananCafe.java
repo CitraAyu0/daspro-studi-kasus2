@@ -113,6 +113,18 @@ public class ManajemenPemesananCafe {
     }
 
     static void lihatSemuaPesanan() {
-
+            if (pesananTercatat == 0) {
+                System.out.println("Belum ada pesanan.");
+            } else {
+                System.out.println("===== SEMUA PESANAN =====");
+                for (int i = 0; i < pesananTercatat; i++) {
+                    System.out.println("Nama: " + pesanan[i][0]);
+                    System.out.println("Nomor Meja: " + pesanan[i][1]);
+                    System.out.println("Rincian Pesanan:");
+                    System.out.println(pesanan[i][2]);
+                    System.out.println("Total Harga: Rp " + pesanan[i][3]);
+                    System.out.println("--------------------------");
+                }
+            }
+        }
     }
-}
